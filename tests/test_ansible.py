@@ -11,6 +11,11 @@ def AnsibleVarBinDir(Ansible):
     return Ansible("debug", "msg={{ blackbox_exporter_bin_path }}")["msg"]
 
 
+@pytest.fixture()
+def AnsibleVars(Ansible):
+    return Ansible("include_vars", "tests/group_vars/group01.yml")["ansible_facts"]
+
+
 def test_blackbox_exporter_user(User, Group, AnsibleDefaults):
     assert User(AnsibleDefaults["blackbox_exporter_user"]).exists
     assert Group(AnsibleDefaults["blackbox_exporter_group"]).exists
@@ -40,8 +45,8 @@ def test_blackbox_exporter_executable(File, Command, AnsibleDefaults, AnsibleVar
     assert "version " + AnsibleDefaults["blackbox_exporter_version"] in blackbox_exporter_version.stdout
 
 
-def test_blackbox_exporter_service(File, Service, Socket, AnsibleDefaults):
-    port = AnsibleDefaults["blackbox_exporter_port"]
+def test_blackbox_exporter_service(File, Service, Socket, AnsibleVars):
+    port = AnsibleVars["blackbox_exporter_port"]
     assert File("/etc/systemd/system/blackbox_exporter.service").exists
     assert Service("blackbox_exporter").is_running
     assert Socket("tcp://:::" + str(port)).is_listening
