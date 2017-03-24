@@ -31,4 +31,4 @@ blackbox_exporter_port: 9115
 
 blackbox_exporter_options:
   - "config.file {{ blackbox_exporter_config_path }}/{{ blackbox_exporter_config_file }}"
-  - "web.listen-address :9115"
+  - "web.listen-address :{{ blackbox_exporter_port }}"
