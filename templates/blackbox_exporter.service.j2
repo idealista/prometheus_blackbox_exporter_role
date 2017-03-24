@@ -1,0 +1,18 @@
+[Unit]
+Description=prometheus blackbox exporter
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+PrivateTmp=yes
+User={{ blackbox_exporter_user }}
+Group={{ blackbox_exporter_group }}
+RuntimeDirectory=blackbox_exporter
+ExecStart=/bin/sh -c "{{ blackbox_exporter_bin_path }}/blackbox_exporter {% for option in blackbox_exporter_options %}-{{ option }} {% endfor %}> {{ blackbox_exporter_log_path }}/{{ blackbox_exporter_log_file }} 2>&1"
+ExecStartPost=/bin/sh -c "echo $MAINPID > /run/blackbox_exporter/blackbox_exporter.pid"
+ExecReload=/bin/kill -HUP $MAINPID
+PIDFile=/run/blackbox_exporter/blackbox_exporter.pid
+KillSignal=SIGTERM
+
+[Install]
+WantedBy=multi-user.target

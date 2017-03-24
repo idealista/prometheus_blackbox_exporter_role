@@ -1,0 +1,34 @@
+---
+## General
+blackbox_exporter_version: 0.4.0
+blackbox_exporter_release_system: linux-amd64
+
+# Set true to force the download and installation of the binary
+blackbox_exporter_force_reinstall: false
+
+## Service options
+
+# Owner
+blackbox_exporter_user: prometheus
+blackbox_exporter_group: prometheus
+
+# start on boot
+blackbox_exporter_service_enabled: True
+# current state: started, stopped
+blackbox_exporter_service_state: started
+
+# Files & Paths
+blackbox_exporter_log_path: /var/log/blackbox_exporter
+blackbox_exporter_log_file: "blackbox_exporter.log"
+blackbox_exporter_root_path: /opt/blackbox_exporter
+blackbox_exporter_bin_path: "{{ blackbox_exporter_root_path }}/bin"
+
+blackbox_exporter_config_path: "{{ blackbox_exporter_root_path }}/config"
+blackbox_exporter_config_file: "blackbox.yml"
+
+# Port
+blackbox_exporter_port: 9115
+
+blackbox_exporter_options:
+  - "config.file {{ blackbox_exporter_config_path }}/{{ blackbox_exporter_config_file }}"
+  - "web.listen-address :9115"

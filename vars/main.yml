@@ -1,0 +1,6 @@
+---
+
+blackbox_exporter_release_name: "blackbox_exporter-{{ blackbox_exporter_version }}.{{ blackbox_exporter_release_system }}"
+blackbox_exporter_package: "blackbox_exporter-{{ blackbox_exporter_version }}.{{ blackbox_exporter_release_system }}.tar.gz"
+
+blackbox_exporter_url: "https://github.com/prometheus/blackbox_exporter/releases/download/v{{ blackbox_exporter_version }}/{{ blackbox_exporter_package }}"

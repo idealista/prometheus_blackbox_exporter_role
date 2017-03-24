@@ -1,0 +1,14 @@
+{{ blackbox_exporter_log_path }}/{{ blackbox_exporter_log_file }} {
+  daily
+  sharedscripts
+  notifempty
+  missingok
+  rotate 7
+  size 500M
+  compress
+  delaycompress
+  create 664 {{ blackbox_exporter_user }} {{ blackbox_exporter_group }}
+  postrotate
+        [ ! -f /run/blackbox_exporter.pid ] || systemctl restart blackbox_exporter.service
+  endscript
+}

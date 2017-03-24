@@ -1,0 +1,11 @@
+---
+
+- name: BLACKBOX_EXPORTER | Install
+  include: install.yml
+  tags:
+    - install
+
+- name: BLACKBOX_EXPORTER | Configure
+  include: config.yml
+  tags:
+    - configure
