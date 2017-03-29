@@ -8,5 +8,5 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a ch
 ### Fixed
 - *[#1](https://github.com/idealista/prometheus_blackbox_exporter-role/issues/1) Enabling blackbox exporter service* @dortegau
 
-## [1.0.0](https://github.com/idealista/prometheus_node_exporter-role/tree/1.0.0)
+## [1.0.0](https://github.com/idealista/prometheus_blackbox_exporter-role/tree/1.0.0)
 - First version
