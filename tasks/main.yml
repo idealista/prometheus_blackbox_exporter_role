@@ -9,3 +9,8 @@
   include: config.yml
   tags:
     - configure
+
+- name: BLACKBOX_EXPORTER | Service
+  include: service.yml
+  tags:
+    - service
