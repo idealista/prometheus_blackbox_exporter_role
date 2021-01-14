@@ -7,7 +7,7 @@ lint: |
   yamllint .
   ansible-lint .
 platforms:
-  - name: blackbox_exporter_debian10
+  - name: blackbox_exporter
     groups:
       - blackbox_exporter_group
     image: ${MOLECULE_DISTRO:-debian:buster-slim}
@@ -23,21 +23,6 @@ platforms:
     command: '/lib/systemd/systemd'
     stop_signal: 'RTMIN+3'
 
-  - name: blackbox_exporter_debian9
-    groups:
-      - blackbox_exporter_group
-    image: ${MOLECULE_DISTRO:-debian:stretch-slim}
-    privileged: false
-    capabilities:
-      - SYS_ADMIN
-    tmpfs:
-      - /tmp
-      - /run
-      - /run/lock
-    volumes:
-      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-    command: '/lib/systemd/systemd'
-    stop_signal: 'RTMIN+3'
 provisioner:
   name: ansible
 verifier:
