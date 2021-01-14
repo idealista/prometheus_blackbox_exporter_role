@@ -1,13 +1,17 @@
 ---
 
 galaxy_info:
-  company: Idealista S.A.
-  description: Prometheus Blackbox exporter
-  min_ansible_version: 2.2
+  author: idealista
+  company: Idealista S.A.U.
+  description: Blackbox Exporter Role
+  min_ansible_version: 2.9.9
   license: Apache 2.0
+  galaxy-tags:
+    - monitoring
+    - prometheus
+    - exporter
   platforms:
     - name: Debian
       versions:
-        - jessie
-  categories:
-    - monitoring
+        - stretch
+        - buster
