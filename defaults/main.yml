@@ -1,34 +1,64 @@
 ---
 ## General
-blackbox_exporter_version: 0.4.0
+# Version
+blackbox_exporter_version: 0.18.0
 blackbox_exporter_release_system: linux-amd64
+
+# Package URL
+blackbox_exporter_release_name: "blackbox_exporter-{{ blackbox_exporter_version }}.{{ blackbox_exporter_release_system }}"
+blackbox_exporter_package: "{{ blackbox_exporter_release_name }}.tar.gz"
+blackbox_exporter_url: "https://github.com/prometheus/blackbox_exporter/releases/download/v{{ blackbox_exporter_version }}/{{ blackbox_exporter_package }}"
+
+# Package paths
+blackbox_exporter_download_path: /usr/src
+blackbox_exporter_package_path: "{{ blackbox_exporter_download_path }}/{{ blackbox_exporter_package }}"
+blackbox_exporter_src_bin: "{{ blackbox_exporter_download_path }}/{{ blackbox_exporter_release_name }}/{{ blackbox_exporter_exec_name }}"
 
 # Set true to force the download and installation of the binary
 blackbox_exporter_force_reinstall: false
 
+
+# Installation path
+blackbox_exporter_root_path: /opt/blackbox_exporter
+blackbox_exporter_bin_path: "{{ blackbox_exporter_root_path }}/bin"
+blackbox_exporter_skeleton_paths:
+  - "{{ blackbox_exporter_bin_path }}"
+  - "{{ blackbox_exporter_log_path }}"
+  - "{{ blackbox_exporter_config_path }}"
+blackbox_exporter_exec_name: blackbox_exporter
+
 ## Service options
+# Documentation
+blackbox_exporter_documentation_link: "https://github.com/prometheus/blackbox_exporter"
 
 # Owner
 blackbox_exporter_user: prometheus
 blackbox_exporter_group: prometheus
+
+# Maximum number of files limit
+blackbox_exporter_max_files: 32768
 
 # start on boot
 blackbox_exporter_service_enabled: True
 # current state: started, stopped
 blackbox_exporter_service_state: started
 
-# Files & Paths
+# Logs and config Files & Paths
 blackbox_exporter_log_path: /var/log/blackbox_exporter
 blackbox_exporter_log_file: "blackbox_exporter.log"
-blackbox_exporter_root_path: /opt/blackbox_exporter
-blackbox_exporter_bin_path: "{{ blackbox_exporter_root_path }}/bin"
+blackbox_exporter_log_output: "{% if blackbox_exporter_log_file is defined %}file:{{ blackbox_exporter_log_path }}/{{ blackbox_exporter_log_file }} {% else %} journal {% endif %}"
 
 blackbox_exporter_config_path: "{{ blackbox_exporter_root_path }}/config"
 blackbox_exporter_config_file: "blackbox.yml"
+
+# Templates paths
+blackbox_exporter_template_service_path: blackbox_exporter.service.j2
+blackbox_exporter_template_logrotate_path: logrotate.j2
+
 
 # Port
 blackbox_exporter_port: 9115
 
 blackbox_exporter_options:
-  - "config.file {{ blackbox_exporter_config_path }}/{{ blackbox_exporter_config_file }}"
+  - "config.file={{ blackbox_exporter_config_path }}/{{ blackbox_exporter_config_file }}"
   - "web.listen-address :{{ blackbox_exporter_port }}"

@@ -2,4 +2,4 @@
 - name: Converge
   hosts: blackbox_exporter_group
   roles:
-    - role: prometheus_blackbox_exporter-role
+    - role: prometheus_blackbox_exporter_role
