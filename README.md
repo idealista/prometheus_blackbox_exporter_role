@@ -39,8 +39,8 @@ Create or add to your roles dependency file (e.g requirements.yml):
 
 ```
 - src: idealista.prometheus_blackbox_exporter_role
-  version: 1.0.0
-  name: prometheus_blackbox_exporter_role
+  version: 2.0.0
+  name: prometheus_blackbox_exporter
 ```
 
 Install the role with ansible-galaxy command:
@@ -55,7 +55,7 @@ Use in a playbook:
 ---
 - hosts: someserver
   roles:
-    - role: prometheus_blackbox_exporter_role
+    - role: prometheus_blackbox_exporter
 ```
 
 ## Usage
