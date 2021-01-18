@@ -23,7 +23,6 @@ blackbox_exporter_root_path: /opt/blackbox_exporter
 blackbox_exporter_bin_path: "{{ blackbox_exporter_root_path }}/bin"
 blackbox_exporter_skeleton_paths:
   - "{{ blackbox_exporter_bin_path }}"
-  - "{{ blackbox_exporter_log_path }}"
   - "{{ blackbox_exporter_config_path }}"
 blackbox_exporter_exec_name: blackbox_exporter
 
@@ -39,14 +38,16 @@ blackbox_exporter_group: prometheus
 blackbox_exporter_max_files: 32768
 
 # start on boot
-blackbox_exporter_service_enabled: True
+blackbox_exporter_service_enabled: true
 # current state: started, stopped
 blackbox_exporter_service_state: started
 
 # Logs and config Files & Paths
+# If wanted to output the logs to a file define the following variable
+# More information at https://www.freedesktop.org/software/systemd/man/systemd.exec.html#StandardOutput=
 blackbox_exporter_log_path: /var/log/blackbox_exporter
 blackbox_exporter_log_file: "blackbox_exporter.log"
-blackbox_exporter_log_output: "{% if blackbox_exporter_log_file is defined %}file:{{ blackbox_exporter_log_path }}/{{ blackbox_exporter_log_file }} {% else %} journal {% endif %}"
+blackbox_exporter_log_output: "{% if blackbox_exporter_log_file is defined %}file:{{ blackbox_exporter_log_path }}/{{ blackbox_exporter_log_file }}{% else %}journal{% endif %}"
 
 blackbox_exporter_config_path: "{{ blackbox_exporter_root_path }}/config"
 blackbox_exporter_config_file: "blackbox.yml"

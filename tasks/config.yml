@@ -14,3 +14,4 @@
     mode: 0644
     owner: root
     group: root
+  when: blackbox_exporter_path is defined

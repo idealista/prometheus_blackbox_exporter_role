@@ -22,6 +22,16 @@
   with_items:
     - "{{ blackbox_exporter_skeleton_paths }}"
 
+- name: BLACKBOX_EXPORTER | Ensure skeleton log paths
+  file:
+    dest: "{{ item }}"
+    owner: "{{ blackbox_exporter_user }}"
+    group: "{{ blackbox_exporter_group }}"
+    state: directory
+  with_items:
+    - "{{ blackbox_exporter_log_path }}"
+  when: blackbox_exporter_log_path is defined
+
 - name: BLACKBOX_EXPORTER | Check blackbox_exporter version
   command: blackbox_exporter -version
   register: blackbox_exporter_check
@@ -40,7 +50,6 @@
     dest: "{{ blackbox_exporter_download_path }}"
     remote_src: true
   when: blackbox_exporter_force_reinstall or blackbox_exporter_check is failed or blackbox_exporter_version  not in blackbox_exporter_check.stderr
-
 
 - name: blackbox_exporter | Copy binary
   copy:
