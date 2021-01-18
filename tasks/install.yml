@@ -2,16 +2,16 @@
 - name: BLACKBOX_EXPORTER | Ensure blackbox_exporter group
   group:
     name: "{{ blackbox_exporter_group }}"
-    system: yes
+    system: true
     state: present
 
 - name: BLACKBOX_EXPORTER | Ensure blackbox_exporter user
   user:
     name: "{{ blackbox_exporter_user }}"
     group: "{{ blackbox_exporter_group }}"
-    system: yes
+    system: true
     shell: /usr/sbin/nologin
-    createhome: no
+    createhome: false
 
 - name: BLACKBOX_EXPORTER | Ensure skeleton paths
   file:
@@ -20,9 +20,17 @@
     group: "{{ blackbox_exporter_group }}"
     state: directory
   with_items:
-    - "{{ blackbox_exporter_bin_path }}"
+    - "{{ blackbox_exporter_skeleton_paths }}"
+
+- name: BLACKBOX_EXPORTER | Ensure skeleton log paths
+  file:
+    dest: "{{ item }}"
+    owner: "{{ blackbox_exporter_user }}"
+    group: "{{ blackbox_exporter_group }}"
+    state: directory
+  with_items:
     - "{{ blackbox_exporter_log_path }}"
-    - "{{ blackbox_exporter_config_path }}"
+  when: blackbox_exporter_log_path is defined
 
 - name: BLACKBOX_EXPORTER | Check blackbox_exporter version
   command: blackbox_exporter -version
@@ -33,42 +41,29 @@
 - name: BLACKBOX_EXPORTER | Download package
   get_url:
     url: "{{ blackbox_exporter_url }}"
-    dest: /tmp
-  when: 'blackbox_exporter_force_reinstall or blackbox_exporter_check|failed or "blackbox_exporter, version {{ blackbox_exporter_version }}" not in blackbox_exporter_check.stderr'
+    dest: "{{ blackbox_exporter_package_path }}"
+  when: blackbox_exporter_force_reinstall or blackbox_exporter_check is failed or blackbox_exporter_version not in blackbox_exporter_check.stderr
 
 - name: BLACKBOX_EXPORTER | Extract downloaded package
   unarchive:
-    src: "/tmp/{{ blackbox_exporter_package }}"
-    dest: "/tmp"
-    remote_src: True
+    src: "{{ blackbox_exporter_package_path }}"
+    dest: "{{ blackbox_exporter_download_path }}"
+    remote_src: true
+  when: blackbox_exporter_force_reinstall or blackbox_exporter_check is failed or blackbox_exporter_version  not in blackbox_exporter_check.stderr
 
-- name: BLACKBOX_EXPORTER | Copy binary
+- name: blackbox_exporter | Copy binary
   copy:
-    src: "/tmp/{{ blackbox_exporter_release_name }}/blackbox_exporter"
-    dest: "{{ blackbox_exporter_bin_path }}/blackbox_exporter"
+    src: "{{ blackbox_exporter_src_bin }}"
+    dest: "{{ blackbox_exporter_bin_path }}/{{ blackbox_exporter_exec_name }}"
     owner: "{{ blackbox_exporter_user }}"
     group: "{{ blackbox_exporter_group }}"
-    remote_src: True
+    remote_src: true
     mode: 0755
-  when: 'blackbox_exporter_force_reinstall or blackbox_exporter_check|failed or "blackbox_exporter, version {{ blackbox_exporter_version }}" not in blackbox_exporter_check.stderr'
-  notify: restart blackbox_exporter
+  when: blackbox_exporter_force_reinstall or blackbox_exporter_check is failed or blackbox_exporter_version not in blackbox_exporter_check.stderr
 
-- name: BLACKBOX_EXPORTER | Link binary
+- name: blackbox_exporter | Link binary
   file:
-    src: "{{ blackbox_exporter_bin_path }}/blackbox_exporter"
-    dest: "/usr/bin/blackbox_exporter"
+    src: "{{ blackbox_exporter_bin_path }}/{{ blackbox_exporter_exec_name }}"
+    dest: "/usr/bin/{{ blackbox_exporter_exec_name }}"
     state: link
-
-- name: BLACKBOX_EXPORTER | Copy default blackbox config
-  copy:
-    src: "blackbox.yml"
-    dest: "{{ blackbox_exporter_config_path }}"
-    owner: "{{ blackbox_exporter_user }}"
-    group: "{{ blackbox_exporter_group }}"
-
-- name: BLACKBOX_EXPORTER | Copy Daemon script
-  template:
-    src: blackbox_exporter.service.j2
-    dest: /etc/systemd/system/blackbox_exporter.service
-    mode: 0644
-  notify: restart blackbox_exporter
+  when: blackbox_exporter_force_reinstall or blackbox_exporter_check is failed or blackbox_exporter_version not in blackbox_exporter_check.stderr

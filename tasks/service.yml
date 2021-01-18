@@ -1,8 +1,14 @@
 ---
+- name: BLACKBOX_EXPORTER | Copy Daemon script
+  template:
+    src: "{{ blackbox_exporter_template_service_path }}"
+    dest: /etc/systemd/system/blackbox_exporter.service
+    mode: 0644
+  notify: restart blackbox_exporter
 
 - name: BLACKBOX_EXPORTER | Configuring service
   systemd:
     name: blackbox_exporter
     state: "{{ blackbox_exporter_service_state }}"
     enabled: "{{ blackbox_exporter_service_enabled }}"
-    daemon_reload: yes
+    daemon_reload: true

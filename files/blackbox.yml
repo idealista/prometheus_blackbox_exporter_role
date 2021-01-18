@@ -1,18 +1,15 @@
+---
 # Extracted from: https://github.com/prometheus/blackbox_exporter/blob/master/blackbox.yml
 
 modules:
   http_2xx:
     prober: http
-    timeout: 5s
-    http:
   http_post_2xx:
     prober: http
-    timeout: 5s
     http:
       method: POST
   tcp_connect:
     prober: tcp
-    timeout: 5s
   pop3s_banner:
     prober: tcp
     tcp:
@@ -23,13 +20,11 @@ modules:
         insecure_skip_verify: false
   ssh_banner:
     prober: tcp
-    timeout: 5s
     tcp:
       query_response:
       - expect: "^SSH-2.0-"
   irc_banner:
     prober: tcp
-    timeout: 5s
     tcp:
       query_response:
       - send: "NICK prober"
@@ -39,4 +34,3 @@ modules:
       - expect: "^:[^ ]+ 001"
   icmp:
     prober: icmp
-    timeout: 5s
