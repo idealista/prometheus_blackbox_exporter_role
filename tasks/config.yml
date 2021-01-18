@@ -1,9 +1,17 @@
 ---
 
+- name: BLACKBOX_EXPORTER | Copy default blackbox config
+  copy:
+    src: "{{ blackbox_exporter_config_file }}"
+    dest: "{{ blackbox_exporter_config_path }}"
+    owner: "{{ blackbox_exporter_user }}"
+    group: "{{ blackbox_exporter_group }}"
+
 - name: BLACKBOX_EXPORTER | Copy logrotate config
   template:
-    src: logrotate.j2
+    src: "{{ blackbox_exporter_template_logrotate_path }}"
     dest: /etc/logrotate.d/blackbox_exporter
     mode: 0644
     owner: root
     group: root
+  when: blackbox_exporter_path is defined

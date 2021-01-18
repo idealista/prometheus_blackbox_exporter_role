@@ -1,18 +1,25 @@
+{{ ansible_managed | comment }}
 [Unit]
 Description=prometheus blackbox exporter
+Documentation={{ blackbox_exporter_documentation_link }}
 Requires=network-online.target
 After=network-online.target
 
 [Service]
-PrivateTmp=yes
+PrivateTmp={{ blackbox_exporter_private_tmp }}
 User={{ blackbox_exporter_user }}
 Group={{ blackbox_exporter_group }}
 RuntimeDirectory=blackbox_exporter
-ExecStart=/bin/sh -c "{{ blackbox_exporter_bin_path }}/blackbox_exporter {% for option in blackbox_exporter_options %}-{{ option }} {% endfor %}> {{ blackbox_exporter_log_path }}/{{ blackbox_exporter_log_file }} 2>&1"
-ExecStartPost=/bin/sh -c "echo $MAINPID > /run/blackbox_exporter/blackbox_exporter.pid"
+LimitNOFILE={{ blackbox_exporter_max_files }}
+
+ExecStart={{ blackbox_exporter_bin_path }}/{{ blackbox_exporter_exec_name }} {% for option in blackbox_exporter_options %}{% if option %}--{{ option }} {% endif %}{% endfor %}
+
+StandardOutput={{ blackbox_exporter_log_output }}
+StandardError={{ blackbox_exporter_log_output }}
 ExecReload=/bin/kill -HUP $MAINPID
-PIDFile=/run/blackbox_exporter/blackbox_exporter.pid
 KillSignal=SIGTERM
+Restart=always
+
 
 [Install]
 WantedBy=multi-user.target

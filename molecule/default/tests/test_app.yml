@@ -1,0 +1,29 @@
+---
+## TODO: Remember to adapt goss tests to your convenience
+
+service:
+  blackbox_exporter:
+    enabled: true
+    running: true
+
+user:
+  prometheus:
+    exists: true
+    groups:
+      - prometheus
+    shell: /usr/sbin/nologin
+group:
+  prometheus:
+    exists: true
+
+file:
+  /opt/blackbox_exporter:
+    owner: prometheus
+    group: prometheus
+    exists: true
+    filetype: directory
+  /opt/blackbox_exporter/bin:
+    owner: prometheus
+    group: prometheus
+    exists: true
+    filetype: directory
