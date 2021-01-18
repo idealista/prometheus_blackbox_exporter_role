@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a ch
 
 
 ## [Unreleased](https://github.com/idealista/prometheus_blackbox_exporter_role/tree/develop)
+### Changed
+### Added
+### Removed
+
+## [2.0.0](https://github.com/idealista/prometheus_blackbox_exporter_role/tree/2.0.0) (2021-01-18)
+[Full Changelog](https://github.com/idealista/prometheus_blackbox_exporter_role/compare/1.0.1...2.0.0)
 ### Changed 
 - *[#7](https://github.com/idealista/prometheus_blackbox_exporter_role/issues/7) Bumped blackbox exporter version from 0.4.0 to 0.18.0* @xtianae7
 - *[#7](https://github.com/idealista/prometheus_blackbox_exporter_role/issues/7) [#9](https://github.com/idealista/prometheus_blackbox_exporter_role/issues/7) Tasks and vars cleanup* @xtianae7
