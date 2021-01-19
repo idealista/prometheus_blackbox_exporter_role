@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a ch
 ## [Unreleased](https://github.com/idealista/prometheus_blackbox_exporter_role/tree/develop)
 ### Changed
 ### Added
+- [#12](https://github.com/idealista/prometheus_blackbox_exporter_role/issues/12) blackbox_exporter_config_file_source variable to overwrite the default blackbox.yml config file. There was a bug on how this was done before (version 2.0.0)* @xtianae7
 ### Removed
 
 ## [2.0.0](https://github.com/idealista/prometheus_blackbox_exporter_role/tree/2.0.0) (2021-01-18)
