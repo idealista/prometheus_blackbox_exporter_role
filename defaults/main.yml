@@ -50,6 +50,7 @@ blackbox_exporter_log_file: "blackbox_exporter.log"
 blackbox_exporter_log_output: "{% if blackbox_exporter_log_file is defined %}file:{{ blackbox_exporter_log_path }}/{{ blackbox_exporter_log_file }}{% else %}journal{% endif %}"
 
 blackbox_exporter_config_path: "{{ blackbox_exporter_root_path }}/config"
+blackbox_exporter_config_file_source: "blackbox.yml"
 blackbox_exporter_config_file: "blackbox.yml"
 
 # Templates paths

@@ -1,4 +1,4 @@
-# blackbox_exporter-role changelog
+# blackbox_exporter_role changelog
 
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a changelog](https://github.com/olivierlacan/keep-a-changelog).
@@ -8,6 +8,11 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a ch
 ### Changed
 ### Added
 ### Removed
+
+## [2.1.0](https://github.com/idealista/prometheus_blackbox_exporter_role/tree/2.0.0) (2021-01-19)
+[Full Changelog](https://github.com/idealista/prometheus_blackbox_exporter_role/compare/2.0.0...2.1.0)
+### Added
+- [#12](https://github.com/idealista/prometheus_blackbox_exporter_role/issues/12) blackbox_exporter_config_file_source variable to overwrite the default blackbox.yml config file. There was a bug on how this was done before (version 2.0.0)* @xtianae7
 
 ## [2.0.0](https://github.com/idealista/prometheus_blackbox_exporter_role/tree/2.0.0) (2021-01-18)
 [Full Changelog](https://github.com/idealista/prometheus_blackbox_exporter_role/compare/1.0.1...2.0.0)
