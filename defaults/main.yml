@@ -50,6 +50,7 @@ blackbox_exporter_log_file: "blackbox_exporter.log"
 blackbox_exporter_log_output: "{% if blackbox_exporter_log_file is defined %}file:{{ blackbox_exporter_log_path }}/{{ blackbox_exporter_log_file }}{% else %}journal{% endif %}"
 
 blackbox_exporter_config_path: "{{ blackbox_exporter_root_path }}/config"
+blackbox_exporter_config_file_source: "blackbox.yml"
 blackbox_exporter_config_file: "blackbox.yml"
 
 # Templates paths
@@ -61,7 +62,7 @@ blackbox_exporter_template_logrotate_path: logrotate.j2
 blackbox_exporter_port: 9115
 
 blackbox_exporter_options:
-  - "config.file={{ blackbox_exporter_config_path }}/blackbox.yml"
+  - "config.file={{ blackbox_exporter_config_path }}/{{ blackbox_exporter_config_file }}"
   - "web.listen-address :{{ blackbox_exporter_port }}"
 
 blackbox_exporter_private_tmp: true
