@@ -5,3 +5,8 @@
     name: blackbox_exporter
     state: restarted
   when: blackbox_exporter_service_state != 'stopped'
+
+- name: reload blackbox_exporter
+  uri:
+    url: http://0.0.0.0:9115/-/reload
+    method: POST
