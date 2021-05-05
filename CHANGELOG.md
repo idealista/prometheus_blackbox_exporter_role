@@ -7,7 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a ch
 ## [Unreleased](https://github.com/idealista/prometheus_blackbox_exporter_role/tree/develop)
 ### Changed
 ### Added
-- *[#15](https://github.com/idealista/prometheus_blackbox_exporter_role/issues/15) Reload on runtime when there is a change on configuration file* @cardiente
+- *[#15](https://github.com/idealista/prometheus_blackbox_exporter_role/issues/15) Reload on runtime when there is a change on configuration file* @xtianae7
 ### Removed
 
 ## [2.1.0](https://github.com/idealista/prometheus_blackbox_exporter_role/tree/2.0.0) (2021-01-19)
