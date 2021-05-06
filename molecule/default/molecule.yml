@@ -18,6 +18,8 @@ platforms:
       - /tmp
       - /run
       - /run/lock
+    exposed_ports:
+      - 9115/tcp
     volumes:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
     command: '/lib/systemd/systemd'

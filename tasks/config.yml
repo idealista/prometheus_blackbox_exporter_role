@@ -6,6 +6,7 @@
     dest: "{{ blackbox_exporter_config_path }}/{{ blackbox_exporter_config_file }}"
     owner: "{{ blackbox_exporter_user }}"
     group: "{{ blackbox_exporter_group }}"
+  notify: reload blackbox_exporter
 
 - name: BLACKBOX_EXPORTER | Copy logrotate config
   template:
