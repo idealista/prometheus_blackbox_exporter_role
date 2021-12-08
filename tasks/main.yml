@@ -1,16 +1,16 @@
 ---
 
 - name: BLACKBOX_EXPORTER | Install
-  include: install.yml
+  include_tasks: install.yml
   tags:
     - install
 
 - name: BLACKBOX_EXPORTER | Configure
-  include: config.yml
+  include_tasks: config.yml
   tags:
     - configure
 
 - name: BLACKBOX_EXPORTER | Service
-  include: service.yml
+  include_tasks: service.yml
   tags:
     - service
