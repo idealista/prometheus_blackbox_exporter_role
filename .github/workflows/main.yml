@@ -1,4 +1,3 @@
----
 
 - name: ansible-syntax-check-action
   uses: Pablohn26/ansible-syntax-check-action@v1.0.0
